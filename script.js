@@ -6,7 +6,7 @@ GGR472 LAB 4: Incorporating GIS Analysis into web maps using Turf.js
 Step 1: INITIALIZE MAP
 --------------------------------------------------------------------*/
 // Define access token
-mapboxgl.accessToken = ''; //****ADD YOUR PUBLIC ACCESS TOKEN*****
+mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaWx1biIsImEiOiJjbTVvOTJvNzAwZnJrMmtwdGpkMzRvdmk1In0.TnWy4ZzmPCKAX1aYKDWMaQ'; //****ADD YOUR PUBLIC ACCESS TOKEN*****
 
 // Initialize map and edit to your preference
 const map = new mapboxgl.Map({
