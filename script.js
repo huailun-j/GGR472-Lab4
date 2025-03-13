@@ -46,9 +46,8 @@ Step 2: VIEW GEOJSON POINT DATA ON MAP
 //      Convert the response to JSON format and then store the response in your new variable
 
 let collisiongeojson;
-let hexgeojson;
+// let hexgeojson;
 
-// let collisiongeojson;
 // Use fetch method to access data from URL
 fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab4/refs/heads/main/data/pedcyc_collision_06-21.geojson')
     .then(response => response.json())
@@ -114,7 +113,6 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         }
     });
 
-
 // /*--------------------------------------------------------------------
 // Step 5: FINALIZE YOUR WEB MAP
 // --------------------------------------------------------------------*/
@@ -126,6 +124,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
 //      Add a legend and additional functionality including pop-up windows
 
     // for hexgrid
+
 
     map.addSource('collis-hex', {
         type: 'geojson',
@@ -173,6 +172,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         }
     });
     
+
     // Pop-up windows that appear on a mouse click or hover, remove layer
     //pop up, collision. When mouse click, can see the collision info. Changing cursor on mouse over.
     map.on('mouseenter', 'collisionpoints', () => {
@@ -250,6 +250,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
             e.target.checked ? 'visible' : 'none'
         );
     });
+
 
 });
 
