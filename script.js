@@ -17,6 +17,27 @@ const map = new mapboxgl.Map({
 });
 
 
+// add zoom control
+map.addControl(new mapboxgl.NavigationControl());
+
+// Add fullscreen option to the map
+map.addControl(new mapboxgl.FullscreenControl());
+
+const geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl,
+    countries: "ca" //Canada only
+});
+
+// Append geocoder variable to goeocoder HTML div to position on page
+document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+// Add event listener which returns map view to full screen on button click using flyTo method
+document.getElementById('returnbutton').addEventListener('click', () => {
+    map.flyTo({ center: [-79.39, 43.73], zoom: 10 });
+});
+
+
 /*--------------------------------------------------------------------
 Step 2: VIEW GEOJSON POINT DATA ON MAP
 --------------------------------------------------------------------*/
@@ -24,13 +45,13 @@ Step 2: VIEW GEOJSON POINT DATA ON MAP
 //      Use the fetch method to access the GeoJSON from your online repository
 //      Convert the response to JSON format and then store the response in your new variable
 
-var collisionData; // empty variable to store the collision data after fetching i
-
-fetch('https:///huailun-j.github.io/GGR472-lab4/data/pedcyc_collision_06-21.geojson')
+let collisiongeojson;
+// Use fetch method to access data from URL
+fetch('https:///huailun-j.github.io/GGR472-Lab4/data/pedcyc_collision_06-21.geojson')
     .then(response => response.json())
     .then(response => {
         console.log(response); //Check response in console
-        collisgeojson = response; // Store geojson as variable using URL from fetch response
+        collisiongeojson = response; // Store geojson as variable using URL from fetch response
     });
 
 
