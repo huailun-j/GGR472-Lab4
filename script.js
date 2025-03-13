@@ -112,7 +112,17 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
     });
 
 
-    //5
+// /*--------------------------------------------------------------------
+// Step 5: FINALIZE YOUR WEB MAP
+// --------------------------------------------------------------------*/
+//HINT: Think about the display of your data and usability of your web map.
+//      Update the addlayer paint properties for your hexgrid using:
+//        - an expression
+//        - The COUNT attribute
+//        - The maximum number of collisions found in a hexagon
+//      Add a legend and additional functionality including pop-up windows
+
+    // for hexgrid
 
     map.addSource('collis-hex', {
         type: 'geojson',
@@ -127,25 +137,121 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
             'fill-color': [
                 'step', //step expression
                 ['get', 'COUNT'],
-                '#F9E79F',
-                10, '#F39C12',
-                25, '#D35400'
+                '#EBDFDF',
+                5, '#FF8080',
+                15, '#FF4D4D',
+                25, '#E60000'
             ],
-            'fill-opacity': 0.5,
-            'fill-outline-color': "white"
+            'fill-opacity': 0.75,
+            'fill-outline-color': "#B8AEAE"
         }
     });
 
+    // for collision points
+    map.addSource('collision', {
+        type: 'geojson',
+        data: collisiongeojson
+    });
+
+    map.addLayer({
+        'id': 'collisionpoints',
+        'type': 'circle',
+        'source': 'collision',
+        'paint': {
+            'circle-radius': [
+                'interpolate', ['linear'], ['zoom'],
+                10, 7.2, // Zoom level 10: 8px
+                12, 6 // Zoom level 12:6px
+            ],
+            'circle-radius': 3,
+            'circle-color': '#4b3f3f',
+            'circle-stroke-width': 0.4,
+            'circle-stroke-color': 'white'
+        }
+    });
+    
+    // Pop-up windows that appear on a mouse click or hover, remove layer
+    //pop up, collision. When mouse click, can see the collision info. Changing cursor on mouse over.
+    map.on('mouseenter', 'collisionpoints', () => {
+        map.getCanvas().style.cursor = 'pointer'; 
+    });
+    
+     // Changing cursor when mouse leave
+    map.on('mouseleave', 'collisionpoints', () => {
+        map.getCanvas().style.cursor = ''; 
+    });
+
+    // Event listener for showing popup on click, here is collision points data
+    map.on('click', 'collisionpoints', (e) => {
+        new mapboxgl.Popup()
+            .setLngLat(e.lngLat) //Use method to set coordinates of popup based on mouse click location
+            .setHTML(
+                `<b>Year:</b> ${e.features[0].properties.YEAR}<br>
+                 <b>Neighbourhood:</b> ${e.features[0].properties.NEIGHBOURHOOD_158}<br>
+                 <b>Type:</b> ${e.features[0].properties.INVTYPE}<br>
+                 <b>Injury:</b> ${e.features[0].properties.Injury}`
+            )
+            .addTo(map); //Show popup on map
+    });
 
 
-// /*--------------------------------------------------------------------
-// Step 5: FINALIZE YOUR WEB MAP
-// --------------------------------------------------------------------*/
-//HINT: Think about the display of your data and usability of your web map.
-//      Update the addlayer paint properties for your hexgrid using:
-//        - an expression
-//        - The COUNT attribute
-//        - The maximum number of collisions found in a hexagon
-//      Add a legend and additional functionality including pop-up windows
+ //legend
+    // create legend here
+    //Define array variables for labels and colors.
+    const legendLabels = [
+        '0-5',
+        '6-15',
+        '16-25',
+        '>25'
+        
+    ];
+    //legend color
+    const legendColors = [
+        '#EBDFDF',
+        '#FF8080',
+        '#FF4D4D',
+        '#E60000'
+    ];
+
+    //Declare legend  here
+    const legend = document.getElementById('legend');
+    //Create a block for each layer to store the color and label
+    legendLabels.forEach((label, i) => {
+        const item = document.createElement('div');
+        const key = document.createElement('span');
+        key.className = 'legend-key';
+        key.style.backgroundColor = legendColors[i];
+
+        const value = document.createElement('span');
+        value.innerHTML = `${label}`;
+
+        item.appendChild(key); //add the key (colour cirlce) to the legend row
+        item.appendChild(value); //add the value to the legend row
+        legend.appendChild(item); //add row to the legend
+    });
+
+    // Add event listener to toggle the visibility of hexbin and collision layers
+    //For Hexbin
+    document.getElementById('hexcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'collis-hex-fill',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+    //For COllision
+    document.getElementById('pointcheck').addEventListener('change', (e) => {
+        map.setLayoutProperty(
+            'collisionpoints',
+            'visibility',
+            e.target.checked ? 'visible' : 'none'
+        );
+    });
+
+});
+
+
+
+
 
 
