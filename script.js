@@ -45,6 +45,7 @@ Step 2: VIEW GEOJSON POINT DATA ON MAP
 //      Use the fetch method to access the GeoJSON from your online repository
 //      Convert the response to JSON format and then store the response in your new variable
 
+// Create an empty variable to store the collision GeoJSON data
 let collisiongeojson;
 // let hexgeojson;
 
@@ -70,8 +71,8 @@ fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab4/refs/heads/main/d
 map.on('load', () => {
     console.log("Collision data loaded:", collisiongeojson);
 
-    let bboxgeojson;
-    let bbox = turf.envelope(collisiongeojson); 
+    let bboxgeojson; 
+    let bbox = turf.envelope(collisiongeojson); // a bounding box around the collision points using Turf.js
     let bboxscaled = turf.transformScale(bbox, 1.10); //increasing the size of the bounding box by 10%
     console.log("Expanded Bounding Box:", bboxscaled);
 
@@ -89,7 +90,7 @@ map.on('load', () => {
         bboxscaled.geometry.coordinates[0][2][0], // maxX
         bboxscaled.geometry.coordinates[0][2][1]  // maxY
     ];
-    console.log("Bounding Box Coordinates:", bboxcoords);
+    console.log("Bounding Box Coordinates:", bboxcoords); // log the bounding box coordinates
 
     // Create a grid of 0.5km hexagons inside the spatial limits of the bbox coordinates
     let hexgeojson = turf.hexGrid(bboxcoords, 0.5, { units: "kilometers"});
@@ -104,12 +105,12 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
     // aggregate the point data
     let collishex = turf.collect(hexgeojson, collisiongeojson, '_id', 'values');
     //create a foreach loop
-    let maxcollis = 0; // create new variable to storemax no. collisions
+    let maxcollis = 0; // create new variable to store max no. of collisions in a hex
     collishex.features.forEach((feature) => { 
         feature.properties.COUNT = feature.properties.values.length //count the number of collisions
         if (feature.properties.COUNT > maxcollis) { //if the COUNT value is bigger than the maxcollis collision value
             console.log(feature); 
-            maxcollis = feature.properties.COUNT // to updates the maxcollision value 
+            maxcollis = feature.properties.COUNT // to updates the maximum collision value 
         }
     });
 
@@ -123,8 +124,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
 //        - The maximum number of collisions found in a hexagon
 //      Add a legend and additional functionality including pop-up windows
 
-    // for hexgrid
-
+    // for hexgrid data as source, add a fill layer for the hexgrid
 
     map.addSource('collis-hex', {
         type: 'geojson',
@@ -138,13 +138,13 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         'paint': {
             'fill-color': [
                 'step', //step expression
-                ['get', 'COUNT'],
-                '#EBDFDF',
+                ['get', 'COUNT'], //get COUNT property
+                '#EBDFDF', //color
                 5, '#FF8080',
                 15, '#FF4D4D',
                 25, '#E60000'
             ],
-            'fill-opacity': 0.75,
+            'fill-opacity': 0.75, //set opacity
             'fill-outline-color': "#B8AEAE"
         }
     });
@@ -207,7 +207,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         '>25'
         
     ];
-    //legend color
+    //legend hex color
     const legendColors = [
         '#EBDFDF',
         '#FF8080',
@@ -215,22 +215,49 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         '#E60000'
     ];
 
-    //Declare legend  here
-    const legend = document.getElementById('legend');
-    //Create a block for each layer to store the color and label
+    const legend = document.getElementById('legend'); // Get the legend container
+
+    // to create a container for the collision point count legend
+    const collisionCountContainer = document.createElement('div'); // 创建一个容器存放碰撞数量的图例
     legendLabels.forEach((label, i) => {
-        const item = document.createElement('div');
-        const key = document.createElement('span');
+        const item = document.createElement('div'); // create a legend item
+        const key = document.createElement('span'); // create color key
         key.className = 'legend-key';
-        key.style.backgroundColor = legendColors[i];
+        key.style.backgroundColor = legendColors[i]; //set the color
 
-        const value = document.createElement('span');
-        value.innerHTML = `${label}`;
+        const value = document.createElement('span'); //create label
+        value.innerHTML = `${label}`; //label text
 
-        item.appendChild(key); //add the key (colour cirlce) to the legend row
-        item.appendChild(value); //add the value to the legend row
-        legend.appendChild(item); //add row to the legend
+        item.appendChild(key);
+        item.appendChild(value);
+        collisionCountContainer.appendChild(item); // to add item to the container
     });
+
+
+    // add the collision count legend to the map, this step asked chatgpt for debug, my collision points legend title duplicated at first
+    const collisionCountTitle = legend.querySelector('h4'); //first legend title (hex)
+    legend.insertBefore(collisionCountContainer, collisionCountTitle.nextSibling); // insert the legend after the title
+    // a container for the collision points legend
+    const legendCollisionPoints = document.createElement('div');
+    const pointItem = document.createElement('div');
+    const pointKey = document.createElement('span');
+    pointKey.className = 'legend-key';
+    pointKey.style.backgroundColor = '#4b3f3f'; // color
+    pointKey.style.borderRadius = '50%'; // radium
+    pointKey.style.width = '10px';
+    pointKey.style.height = '10px';
+
+    const pointValue = document.createElement('span');
+    pointValue.innerHTML = 'Collision point'; //text on 
+
+    pointItem.appendChild(pointKey);
+    pointItem.appendChild(pointValue);
+    legendCollisionPoints.appendChild(pointItem);
+
+    // to add collision points legend to the webmap
+    const collisionPointsTitle = legend.querySelectorAll('h4')[1]; // add second legend title
+    legend.insertBefore(legendCollisionPoints, collisionPointsTitle.nextSibling); // insert legend after title
+
 
     // Add event listener to toggle the visibility of hexbin and collision layers
     //For Hexbin
@@ -241,28 +268,10 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
             e.target.checked ? 'visible' : 'none'
         );
     });
-    //For COllision
-    // document.getElementById('pointcheck').addEventListener('change', (e) => {
-    //     map.setLayoutProperty(
-    //         'collisionpoints',
-    //         'visibility',
-    //         e.target.checked ? 'visible' : 'none'
-    //     );
-    // });
 
-
-    // document.getElementById('pointcheck').addEventListener('change', (e) => {
-    //     const visibility = e.target.checked ? 'visible' : 'none';
-    //     if (map.getLayer('collisionpoints')) {
-    //         map.setLayoutProperty('collisionpoints', 'visibility', visibility);
-    //     }
-    // });
-
-    document.getElementById('pointcheck').addEventListener('change', (e) => {
-        const visibility = e.target.checked ? 'visible' : 'none';
-        if (map.getLayer('collisionpoints')) {
-            map.setLayoutProperty('collisionpoints', 'visibility', visibility);
-        }
+    //for legend
+    document.getElementById('legendcheck').addEventListener('change', (e) => {
+        document.getElementById('legend').style.display = e.target.checked ? 'block' : 'none';
     });
 
 });

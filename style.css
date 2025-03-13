@@ -1,5 +1,5 @@
 #my-map {
-    width: 100%;
+    width: 100%; /* Full width of the container */
     height: 680px;
 }
 
@@ -8,18 +8,19 @@ html, body {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Prevents scrolling */
+    overflow: hidden; /* prevents scrolling */
 }
 
+/* style for the map container with ID 'map' */
 #map {
     position: absolute;
     top: 50px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); 
 }
 
-/* 🔹 Search Container */
+/* search container */
 .map-search-container {
     position: absolute;
     top: 60px;
@@ -32,10 +33,10 @@ html, body {
     z-index: 1000; /* stays on top */
 }
 
-/* 🔹 Search Input */
+/* search input */
 .mapboxgl-ctrl-geocoder {
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 100% !important; /* to make sure it doesn't exceed the container width, this is ask chatgpt */
     box-sizing: border-box;
 }
 
@@ -45,16 +46,16 @@ html, body {
     border-radius: 5px;
 }
 
-/* 🔹 Search Button */
+/* search button */
 .map-search-container button {
     margin-top: 5px;
     width: 100%;
 }
 
-/* 🔹 Legend Styling */
+/* legend */
 .legend {
     position: absolute;
-    bottom: 30px;
+    bottom: 45px;
     right: 10px;
     background: rgba(255, 255, 255, 0.9);
     padding: 10px;
@@ -68,8 +69,13 @@ html, body {
     margin: 0;
     padding-bottom: 5px;
     font-size: 16px;
-    text-align: center;
+    text-align: left;
 }
+
+.legend h4:nth-of-type(2) {
+    margin-top: 15px; 
+}
+
 
 .legend-key {
     display: inline-block;
@@ -79,22 +85,6 @@ html, body {
     border-radius: 3px;
 }
 
-/* 🔹 Checkbox Filter (Hexgrid & Points) */
-/* .map-data-container {
-    position: absolute;
-    bottom: 490px;
-    left: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 10px 5px; 
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    gap: 5px; 
-    height: auto; 
-} */
 
 .map-data-container {
     position: absolute;
@@ -113,26 +103,20 @@ html, body {
     height: auto; 
 }
 
-/* 🔹 Form Checkboxes */
+/* form checkboxs */
 .form-check {
     display: flex;
     align-items: center;
-    margin-bottom: 3px; /* 减少 margin-bottom，去掉额外空白 */
+    margin-bottom: 3px; 
 }
 
 .form-check-input {
     margin-right: 5px;
 }
 
-/* 🔹 Button Styling */
 .btn {
     font-size: 14px;
     width: 100%;
     margin-top: 5px;
 }
 
-/* 🔹 Mapbox Popups */
-/* .mapboxgl-popup-content {
-    font-size: 14px;
-    font-weight: bold;
-} */
