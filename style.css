@@ -1,8 +1,148 @@
-.map {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+#my-map {
     width: 100%;
+    height: 680px;
+}
+  
+html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Prevents scrolling */
+}
+  
+ #map {
+      position: absolute;
+      top: 50px; 
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 60px); 
+}
+  
+.map-search-container {
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* stays on top */
+}
+
+.map-search-container input {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.map-search-container button {
+    margin-top: 5px;
+    width: 100%;
+}
+  
+  .mapboxgl-ctrl-geocoder {
+      width: 100% !important;
+      max-width: 300px; /* Adjust width as needed */
+}
+  
+.mapboxgl-ctrl-geocoder input {
+    padding-left: 35px !important; /* Ensures text starts after the search icon */
+}
+  
+/* Data container (filter section) */
+.map-data-container {
+    position: absolute;
+    top: 190px;
+    /* bottom: 20px; */
+    left: 10px;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+  
+/* Form checkboxes */
+  form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+  
+.form-check-input {
+    margin-right: 5px;
+}
+  
+
+/*----------------------------------------------------
+🔹 LEGEND STYLING
+----------------------------------------------------*/
+.legend {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 999;
+}
+
+.legend h4 {
+    margin: 0;
+    padding-bottom: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.legend-key {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+/*----------------------------------------------------
+  🔹 CHECKBOX FILTER (Hexgrid & Points)
+----------------------------------------------------*/
+.map-data-container {
+    position: absolute;
+    bottom: 90px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 999;
+}
+
+/*----------------------------------------------------
+  🔹 BUTTON STYLING
+----------------------------------------------------*/
+.btn {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/*----------------------------------------------------
+  🔹 MAPBOX POPUPS
+----------------------------------------------------*/
+.mapboxgl-popup-content {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*----------------------------------------------------
+  🔹 CHECKBOXES STYLING
+----------------------------------------------------*/
+.form-check {
+    margin-bottom: 5px;
 }
