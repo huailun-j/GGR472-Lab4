@@ -172,7 +172,6 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         }
     });
     
-
     // Pop-up windows that appear on a mouse click or hover, remove layer
     //pop up, collision. When mouse click, can see the collision info. Changing cursor on mouse over.
     map.on('mouseenter', 'collisionpoints', () => {
@@ -243,14 +242,28 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
         );
     });
     //For COllision
-    document.getElementById('pointcheck').addEventListener('change', (e) => {
-        map.setLayoutProperty(
-            'collisionpoints',
-            'visibility',
-            e.target.checked ? 'visible' : 'none'
-        );
-    });
+    // document.getElementById('pointcheck').addEventListener('change', (e) => {
+    //     map.setLayoutProperty(
+    //         'collisionpoints',
+    //         'visibility',
+    //         e.target.checked ? 'visible' : 'none'
+    //     );
+    // });
 
+
+    // document.getElementById('pointcheck').addEventListener('change', (e) => {
+    //     const visibility = e.target.checked ? 'visible' : 'none';
+    //     if (map.getLayer('collisionpoints')) {
+    //         map.setLayoutProperty('collisionpoints', 'visibility', visibility);
+    //     }
+    // });
+
+    document.getElementById('pointcheck').addEventListener('change', (e) => {
+        const visibility = e.target.checked ? 'visible' : 'none';
+        if (map.getLayer('collisionpoints')) {
+            map.setLayoutProperty('collisionpoints', 'visibility', visibility);
+        }
+    });
 
 });
 
