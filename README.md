@@ -19,4 +19,5 @@ Users can analyze the map to find:
  
 ### 📊 Data Sources
 One data for this webpage was sourced from Toronto's Open Data Portal:
-Point Feature: [Collision] (https://open.toronto.ca/dataset/motor-vehicle-collisions-involving-killed-or-seriously-injured-persons/)
+
+- Point Feature: [Collision] (https://open.toronto.ca/dataset/motor-vehicle-collisions-involving-killed-or-seriously-injured-persons/)
