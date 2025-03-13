@@ -15,7 +15,7 @@ Users can analyze the map to find:
 index.html: Main file for structuring the webpage, including the navigation bar, search box, map container and legend.
 script.js: JavaScript file for for data acquisition, map initialization, layer creation, pop-ups and interactive functions.
 style.css: Custom CSS for styling the webpage and map layout, legend, map search.
-Data: Contains the GeoJSON dataset pedcyc_collision_06-21.geojson, which stores traffic accident records.
+Data/: Contains the GeoJSON dataset pedcyc_collision_06-21.geojson, which stores traffic accident records.
  
 ### 📊 Data Sources
 One data for this webpage was sourced from Toronto's Open Data Portal:
