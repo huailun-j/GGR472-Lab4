@@ -50,7 +50,7 @@ let hexgeojson;
 
 // let collisiongeojson;
 // Use fetch method to access data from URL
-fetch('https:///huailun-j.github.io/GGR472-Lab4/data/pedcyc_collision_06-21.geojson')
+fetch('https://raw.githubusercontent.com/huailun-j/GGR472-Lab4/refs/heads/main/data/pedcyc_collision_06-21.geojson')
     .then(response => response.json())
     .then(response => {
         console.log(response); //Check response in console
