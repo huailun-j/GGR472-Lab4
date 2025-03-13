@@ -65,6 +65,9 @@ fetch('https:///huailun-j.github.io/GGR472-Lab4/data/pedcyc_collision_06-21.geoj
 //      **Option: You may want to consider how to increase the size of your bbox to enable greater geog coverage of your hexgrid
 //                Consider return types from different turf functions and required argument types carefully here
 
+map.on('load', () => {
+    console.log("Collision data loaded:", collisiongeojson);
+
 
 
 /*--------------------------------------------------------------------
