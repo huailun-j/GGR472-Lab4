@@ -132,7 +132,7 @@ html, body {
 }
 
 /* 🔹 Mapbox Popups */
-.mapboxgl-popup-content {
+/* .mapboxgl-popup-content {
     font-size: 14px;
     font-weight: bold;
-}
+} */
