@@ -46,6 +46,9 @@ Step 2: VIEW GEOJSON POINT DATA ON MAP
 //      Convert the response to JSON format and then store the response in your new variable
 
 let collisiongeojson;
+let hexgeojson;
+
+// let collisiongeojson;
 // Use fetch method to access data from URL
 fetch('https:///huailun-j.github.io/GGR472-Lab4/data/pedcyc_collision_06-21.geojson')
     .then(response => response.json())
