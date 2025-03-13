@@ -11,7 +11,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaHVhaWx1biIsImEiOiJjbTVvOTJvNzAwZnJrMmtwdGpkM
 // Initialize map and edit to your preference
 const map = new mapboxgl.Map({
     container: 'map', // container id in HTML
-    style: '',  // ****ADD MAP STYLE HERE *****
+    style: 'mapbox://styles/huailun/cm86b4g8c00dq01qv8lw69w5h',  // ****ADD MAP STYLE HERE *****
     center: [-79.39, 43.65],  // starting point, longitude/latitude
     zoom: 11 // starting zoom level
 });
@@ -24,6 +24,14 @@ Step 2: VIEW GEOJSON POINT DATA ON MAP
 //      Use the fetch method to access the GeoJSON from your online repository
 //      Convert the response to JSON format and then store the response in your new variable
 
+var collisionData; // empty variable to store the collision data after fetching i
+
+fetch('https:///huailun-j.github.io/GGR472-lab4/data/pedcyc_collision_06-21.geojson')
+    .then(response => response.json())
+    .then(response => {
+        console.log(response); //Check response in console
+        collisgeojson = response; // Store geojson as variable using URL from fetch response
+    });
 
 
 /*--------------------------------------------------------------------
