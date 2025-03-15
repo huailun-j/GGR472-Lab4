@@ -218,7 +218,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
     const legend = document.getElementById('legend'); // Get the legend container
 
     // to create a container for the collision point count legend
-    const collisionCountContainer = document.createElement('div'); // 创建一个容器存放碰撞数量的图例
+    const collisionCountContainer = document.createElement('div'); 
     legendLabels.forEach((label, i) => {
         const item = document.createElement('div'); // create a legend item
         const key = document.createElement('span'); // create color key
