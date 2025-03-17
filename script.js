@@ -139,14 +139,16 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
             'fill-color': [
                 'step', //step expression
                 ['get', 'COUNT'], //get COUNT property
-                '#EBDFDF', //color
+                '#F0BBBB', //color
                 5, '#FF8080',
-                15, '#FF4D4D',
+                15, '#FA3737',
                 25, '#E60000'
             ],
             'fill-opacity': 0.75, //set opacity
             'fill-outline-color': "#B8AEAE"
-        }
+        },
+        'filter': ['>', ['get', 'COUNT'], 0] // filtering, to show only hexbins with COUNT > 0
+        
     });
 
     // for collision points
@@ -201,7 +203,7 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
     // create legend here
     //Define array variables for labels and colors.
     const legendLabels = [
-        '0-5',
+        '1-5',
         '6-15',
         '16-25',
         '>25'
@@ -209,9 +211,9 @@ Step 4: AGGREGATE COLLISIONS BY HEXGRID
     ];
     //legend hex color
     const legendColors = [
-        '#EBDFDF',
+        '#F0BBBB',
         '#FF8080',
-        '#FF4D4D',
+        '#FA3737',
         '#E60000'
     ];
 
